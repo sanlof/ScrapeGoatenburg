@@ -1,3 +1,5 @@
 /node_modules
 .env
 .DS_store
+app/.DS_store
+app/database/database.db
