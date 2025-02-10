@@ -1,30 +1,42 @@
 import axios from "axios";
 import express from "express";
 import * as cheerio from 'cheerio';
-import fs from "fs";
+import fs from "node:fs/promises";
+
+const route = express.Router();
+
+
 
 console.log('starting');
 
 axios.get('https://www.goteborg.com/evenemang')
     .then(res => {
-        // console.log(res.data)
         const $ = cheerio.load(res.data);
+        let eventResults = []
         $('.event-card__body').each((index, element) => {
         const title = $(element).find('.event-card__title').text().trim()
         let link = $(element).find('a.stretched-link').attr('href');
         link = 'https://www.goteborg.com' + link;
         const date = $(element).find('.c-icon__title').eq(0).text();
         const location = $(element).find('.c-icon__title').eq(1).text();
-        console.log(date);
-        console.log(link)
-        console.log(location);
+        
+        const eventData = { 
+                'title': title,
+                'date': date,
+                'location': location,
+                'link': link
+            }
 
-        // const eventCard= {'title': title, 'link': link};
-        // console.log(href)
-    })
-
+        eventResults.push(eventData);
+        
+        })
+       console.log(eventResults);
+       
 
 }).catch(err => console.error(err))
+
+export default eventResults;
+
 
 
     //title = event-card__title
