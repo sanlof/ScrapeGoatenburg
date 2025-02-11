@@ -1,6 +1,7 @@
 import express from "express";
 import path from "path"
 import url from "url";
+import apiRouter from "./api.js";
 
 const port = 3000;
 const app = express();
@@ -14,6 +15,7 @@ app.use('/', (req, res) => {
     res.sendFile(filePath)
 })
 
+app.use('/api', apiRouter);
 
 app.listen(port, () => {
     console.log(`Servern körs på ${port}`)
