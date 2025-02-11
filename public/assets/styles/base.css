@@ -56,6 +56,12 @@ main section article {
     grid-template-rows: auto 1fr auto;
     gap: var(--gap);
 }
+@media (hover: hover) {
+    main section article:hover {
+        cursor: pointer;
+        transform: scale(105%) rotate(0deg)!important;
+    }
+}
 main section article hgroup {
     display: flex;
     flex-direction: column;
