@@ -4,7 +4,7 @@ window.onscroll = function() {
     const top_nav = document.querySelector("nav");
     const header = document.querySelector("header");
 
-    if (window.pageYOffset > 10) {
+    if (window.scrollY > 10) {
         top_nav.classList.add("bg");
     } else {
         top_nav.classList.remove("bg");
@@ -23,6 +23,25 @@ function getRandomColor() {
   }
   return color;
 }
-articles.forEach(article => {
-  article.style.backgroundColor = getRandomColor();
-});
+
+function getRandomRotation() {
+  let min = -5;
+  let max = 5;
+  let random = Math.floor(Math.random() * (max - min + 1)) + min;
+  return "rotate(" + random + "deg)";
+}
+
+// articles.forEach(article => {
+//   article.style.backgroundColor = getRandomColor();
+//   article.style.transform = getRandomRotation();
+// });
+
+
+/****** accessibly linked articles ******/
+
+function handleClick(link) {
+  const noTextSelected = !window.getSelection().toString();
+  if (noTextSelected) {
+      link.click();
+  }
+}
