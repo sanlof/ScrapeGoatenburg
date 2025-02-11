@@ -1,5 +1,22 @@
+function getData() {
+    const url = '/api';
+        fetch(url)
+            .then((response) => {
+                return response.json();
+        }).then((data) => { 
+            const eventResults = data.eventResultsData;
+            console.log(eventResults[0].title)
+             addContentToIndex(eventResults);
 
+        })
+}
+
+getData();
+
+
+function addContentToIndex(eventResults) {
 eventResults.forEach(eventResult => {
+console.log(eventResult)
 const article = document.createElement('article')
 const hgroup = document.createElement('hgroup')
 const paragraph = document.createElement('p')
@@ -16,8 +33,8 @@ hgroup.appendChild(heading)
 article.appendChild(hgroup)
 
 innerWrapper.appendChild(article)
-
 })
+}
 
 
 /* <article>

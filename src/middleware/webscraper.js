@@ -29,7 +29,6 @@ axios.get('https://www.goteborg.com/evenemang')
         eventResults.push(eventData);
         
         })
-       console.log(eventResults);
        
 
 }).catch(err => console.error(err))

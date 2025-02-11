@@ -5,7 +5,7 @@ const Router = express.Router();
 
 Router.get('/', (req, res) => {
     const eventResultsData = eventResults;
-    res.json({ data: { eventResultsData } });
+    res.json({ eventResultsData  });
 });
 
 export default Router;
