@@ -17,30 +17,33 @@ getData();
 function addContentToIndex(eventResults) {
 
     eventResults.forEach(eventResult => {
-        const article = document.createElement('article')
-        const hgroup = document.createElement('hgroup')
-        const date = document.createElement('p')
-        const location = document.createElement('p')
-        const heading = document.createElement('h2')
-        const link = document.createElement('a')
-        const innerWrapper = document.getElementById("inner-wrapper")
+        const article = document.createElement('article');
+        // const hgroup = document.createElement('hgroup');
+        const date = document.createElement('time');
+        const location = document.createElement('adress');
+        const heading = document.createElement('h2');
+        const link = document.createElement('a');
+        const posts = document.getElementById("posts");
         
         date.textContent = eventResult.date;
-        heading.textContent = eventResult.title;
+        // heading.textContent = eventResult.title;
         location.textContent = eventResult.location;
-        link.textContent = 'läs mer';
         link.href = eventResult.link;
+        link.textContent = eventResult.title; // title with link instead
         
-        hgroup.appendChild(date);
-        hgroup.appendChild(heading);
-        article.appendChild(hgroup);
+        article.appendChild(date);
+        article.appendChild(heading);
+        heading.appendChild(link);
         
         article.appendChild(location);
-        article.appendChild(link);
         
-        innerWrapper.appendChild(article);
-
+        posts.appendChild(article);
+        
         article.style.backgroundColor = getRandomColor();
+        article.style.transform = getRandomRotation();
+        article.addEventListener("click", function() {
+            handleClick(link);
+        });
         
     });
 }
