@@ -5,14 +5,13 @@ import fs from "node:fs/promises";
 
 const route = express.Router();
 
-
-
 console.log('starting');
+let eventResults = []
 
 axios.get('https://www.goteborg.com/evenemang')
     .then(res => {
         const $ = cheerio.load(res.data);
-        let eventResults = []
+        
         $('.event-card__body').each((index, element) => {
         const title = $(element).find('.event-card__title').text().trim()
         let link = $(element).find('a.stretched-link').attr('href');
