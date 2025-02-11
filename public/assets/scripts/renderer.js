@@ -15,25 +15,32 @@ getData();
 
 
 function addContentToIndex(eventResults) {
-eventResults.forEach(eventResult => {
-console.log(eventResult)
-const article = document.createElement('article')
-const hgroup = document.createElement('hgroup')
-const paragraph = document.createElement('p')
-const heading = document.createElement('h2')
-const link = document.createElement('a')
-const innerWrapper = document.getElementById("inner-wrapper")
 
-paragraph.textContent = eventResult.date;
-heading.textContent = eventResult.title;
-
-hgroup.appendChild(paragraph)
-hgroup.appendChild(heading)
-
-article.appendChild(hgroup)
-
-innerWrapper.appendChild(article)
-})
+    eventResults.forEach(eventResult => {
+        const article = document.createElement('article')
+        const hgroup = document.createElement('hgroup')
+        const date = document.createElement('p')
+        const location = document.createElement('p')
+        const heading = document.createElement('h2')
+        const link = document.createElement('a')
+        const innerWrapper = document.getElementById("inner-wrapper")
+        
+        date.textContent = eventResult.date;
+        heading.textContent = eventResult.title;
+        location.textContent = eventResult.location;
+        link.textContent = 'läs mer';
+        link.href = eventResult.link;
+        
+        hgroup.appendChild(date)
+        hgroup.appendChild(heading)
+        article.appendChild(hgroup)
+        
+        article.appendChild(location)
+        article.appendChild(link)
+        
+        innerWrapper.appendChild(article)
+        
+        })
 }
 
 
