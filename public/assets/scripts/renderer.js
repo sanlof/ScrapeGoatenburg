@@ -31,24 +31,16 @@ function addContentToIndex(eventResults) {
         link.textContent = 'läs mer';
         link.href = eventResult.link;
         
-        hgroup.appendChild(date)
-        hgroup.appendChild(heading)
-        article.appendChild(hgroup)
+        hgroup.appendChild(date);
+        hgroup.appendChild(heading);
+        article.appendChild(hgroup);
         
-        article.appendChild(location)
-        article.appendChild(link)
+        article.appendChild(location);
+        article.appendChild(link);
         
-        innerWrapper.appendChild(article)
+        innerWrapper.appendChild(article);
+
+        article.style.backgroundColor = getRandomColor();
         
-        })
+    });
 }
-
-
-/* <article>
-<hgroup>
-    <p>Fredag 17 januari</p>
-    <h2>Sagostund på Stadsbiblioteket</h2>
-</hgroup>
-<p>Veritatis, quo quidem nisi architecto excepturi dolorum enim nostrum nam? Neque sint architecto adipisci vero tempore ducimus quaerat nobis corrupti quasi sed.</p>
-<a href="" class="read-more">Läs mer</a>
-</article> */
