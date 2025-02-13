@@ -20,7 +20,7 @@ function addContentToIndex(eventResults) {
         const article = document.createElement('article');
         // const hgroup = document.createElement('hgroup');
         const date = document.createElement('time');
-        const location = document.createElement('adress');
+        const location = document.createElement('address');
         const heading = document.createElement('h2');
         const link = document.createElement('a');
         const posts = document.getElementById("posts");
@@ -33,16 +33,23 @@ function addContentToIndex(eventResults) {
         
         article.appendChild(date);
         article.appendChild(heading);
-        heading.appendChild(link);
-        
         article.appendChild(location);
+        heading.appendChild(link);
         
         posts.appendChild(article);
         
         article.style.backgroundColor = getRandomColor();
         article.style.transform = getRandomRotation();
+        
         article.addEventListener("click", function() {
             handleClick(link);
+        });
+
+        article.addEventListener("mouseenter", function() {
+            article.style.transform = "scale(1.2)";
+        });
+        article.addEventListener("mouseleave", function() {
+            article.style.transform = getRandomRotation();
         });
         
     });
