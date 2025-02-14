@@ -7,13 +7,8 @@
 
     @media screen and (max-width: 500px) {
         --gap: 1.6rem;
-        --inner-padding: 1.6rem;
-        --outer-padding: 1.6rem;
-    }
-    @media screen and (max-width: 400px) {
-        --gap: 1.6rem;
-        --inner-padding: 1.6rem;
-        --outer-padding: 0rem;
+        --inner-padding: 2.8rem;
+        --outer-padding: 1rem;
     }
 }
 
