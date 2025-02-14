@@ -1,16 +1,3 @@
-/****** Fyll nav med färg vid scroll ******/
-
-window.onscroll = function() {
-    const top_nav = document.querySelector("nav");
-    const header = document.querySelector("header");
-
-    if (window.scrollY > 10) {
-        top_nav.classList.add("bg");
-    } else {
-        top_nav.classList.remove("bg");
-    }
-};
-
 /****** Fyll articles med olika bakgrundsfärger ******/
 
 const articles = document.querySelectorAll('article');
