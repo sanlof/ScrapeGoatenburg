@@ -1,10 +1,4 @@
-import axios from "axios";
-import express from "express";
-import * as cheerio from 'cheerio';
-import fs from "node:fs/promises";
 import puppeteer from "puppeteer";
-
-
 
 export class SiteLoader {
     constructor(url) {
@@ -29,23 +23,24 @@ export class SiteLoader {
 
     async evaluatePage(selector, text)
      {
-        const button = await this.page.evaluate((selector, text) => {
-            const buttons = Array.from(document.querySelectorAll(selector));
+        await this.page.evaluate((selector, text) => {
+        const buttons = Array.from(document.querySelectorAll(selector));
            const button = buttons.find(button => button.textContent.trim() === text);
-            return button;
-     })
-     return button;
+        })
+        
     }
-    async clickButton(button)
+
+    async clickButton(selector, text)
     {
-        if(button)
-            {
+        await this.page.evaluate((selector, text) => {
+            const buttons = Array.from(document.querySelectorAll(selector)); 
+            const button = buttons.find(button => button.textContent.trim() === text); 
+            if (button) {
                 button.click();
-                console.log('Button found: ' + text)
-            } else {
-                console.log('Button not found: ' + text)
-            }
-    }
+              } 
+            })
+
+   }
 
     async getContent() 
     {
