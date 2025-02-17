@@ -3,16 +3,25 @@ import express from "express";
 import * as cheerio from 'cheerio';
 import fs from "node:fs/promises";
 import puppeteer from "puppeteer";
+import { SiteLoader } from './../models/SiteLoader.js';
 
 const route = express.Router();
 
+
 let eventResults = []
 
-
-
-getContent();
+const scrape = new SiteLoader('https://www.goteborg.com/evenemang');
+await scrape.startPuppeteer()
+await scrape.goToPage();
+await scrape.setViewport(1080, 1024)
+await scrape.evaluatePage('button', 'Acceptera alla')
+await scrape.evaluatePage('button', 'Visa alla evenemang')
+await scrape.evaluatePage('button', 'Tillbaka till start');
+await scrape.page.screenshot('screenshot.png');
+await scrape.closeBrowser();
 
 export default eventResults;
+
 
 async function getContent() {
 
@@ -21,14 +30,6 @@ async function getContent() {
     await page.goto('https://www.goteborg.com/evenemang', { waitUntil: 'networkidle2'});
 
     await page.setViewport({width: 1080, height: 1024});
-    // await page.waitForSelector('.btn.btn--theme-link.btn--pill');
-    // console.log('waited');
-    // // await page.locator('.btn.btn--theme-link.btn--pill').fill("Visa alla evenemang");
-    // await page.click('.btn.btn--theme-link.btn--pill');
-    // console.log('button clicked');
-    
-// Use page.evaluate to find the button with specific text and click it
-    // await page.waitForSelector('button');
 
     const cookieButton = await page.evaluate(() => {
         const buttons = Array.from(document.querySelectorAll('button')); // Get all buttons
@@ -36,26 +37,13 @@ async function getContent() {
         if(cookieButton)
             {
                 cookieButton.click();
-                console.log('clickec cookie button');
+                console.log('clicked cookie button');
                 }  else {
                 console.log('cookie button not found')
             }
     });
 
     console.log('cookie-button');
-    const backToStartButton = await page.evaluate(() => {
-        const buttons = Array.from(document.querySelectorAll('btn--theme-link')); // Get all buttons
-        const backToStartButton = buttons.find(button => button.textContent.trim() === 'Tillbaka till start'); 
-        if(backToStartButton)
-            {
-                console.log('back to start arrived');
-                }  else {
-                console.log('back to start not found');
-            }
-    });
-
-    console.log('back-to-start-button identified')
-    
 
     const showAllButton = await page.evaluate(() => {
     const buttons = Array.from(document.querySelectorAll('button')); // Get all buttons
@@ -68,11 +56,23 @@ async function getContent() {
       }
      
   });
-
     console.log('showallbutton pressed')
 
+    const backToStartButton = await page.evaluate(() => {
+      const buttons = Array.from(document.querySelectorAll('btn--theme-link')); // Get all buttons
+      const backToStartButton = buttons.find(button => button.textContent.trim() === 'Tillbaka till start'); 
+      if(backToStartButton)
+          {
+              console.log('back to start arrived');
+              }  else {
+              console.log('back to start not found');
+          }
+  });
 
-    page.screenshot({ path: 'screenshot.png' });
+
+  console.log('back-to-start-button identified')
+
+    // page.screenshot({ path: 'screenshot.png' });
     console.log('image saved');
     const htmlContent = await page.content();
 
