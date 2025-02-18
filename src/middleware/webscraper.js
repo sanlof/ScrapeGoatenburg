@@ -1,14 +1,10 @@
-import axios from "axios";
 import express from "express";
 import * as cheerio from 'cheerio';
-import fs from "node:fs/promises";
 import puppeteer from "puppeteer";
 
 const route = express.Router();
 
 let eventResults = []
-
-
 
 getContent();
 
@@ -26,13 +22,13 @@ async function getContent() {
     // // await page.locator('.btn.btn--theme-link.btn--pill').fill("Visa alla evenemang");
     // await page.click('.btn.btn--theme-link.btn--pill');
     // console.log('button clicked');
-    
-// Use page.evaluate to find the button with specific text and click it
+
+    // Use page.evaluate to find the button with specific text and click it
     // await page.waitForSelector('button');
 
     const cookieButton = await page.evaluate(() => {
         const buttons = Array.from(document.querySelectorAll('button')); // Get all buttons
-       const cookieButton = buttons.find(button => button.textContent.trim() === 'Acceptera alla');
+        const cookieButton = buttons.find(button => button.textContent.trim() === 'Acceptera alla');
         if(cookieButton)
             {
                 cookieButton.click();
@@ -55,7 +51,7 @@ async function getContent() {
     });
 
     console.log('back-to-start-button identified')
-    
+
 
     const showAllButton = await page.evaluate(() => {
     const buttons = Array.from(document.querySelectorAll('button')); // Get all buttons
@@ -63,60 +59,44 @@ async function getContent() {
     if (showAllButton) {
         showAllButton.click();
         console.log('Button clicked!');
-      } else {
+        } else {
         console.log('button not clicked');
-      }
-     
-  });
+        }
+        
+    });
 
     console.log('showallbutton pressed')
 
 
-    page.screenshot({ path: 'screenshot.png' });
-    console.log('image saved');
+    // page.screenshot({ path: 'screenshot.png' });
+    // console.log('image saved');
     const htmlContent = await page.content();
 
 
 
-  console.log('page loaded')
+    console.log('page loaded')
 
-  const $ = cheerio.load(htmlContent);
+    const $ = cheerio.load(htmlContent);
 
             
-  $('.event-card__body').each((index, element) => {
-  const title = $(element).find('.heading').text().trim()
-  let link = $(element).find('a.stretched-link').attr('href');
-  link = 'https://www.goteborg.com' + link;
-  const date = $(element).find('.c-icon__title').eq(0).text();
-  const location = $(element).find('.c-icon__title').eq(1).text();
-  
-  const eventData = { 
-          'title': title,
-          'date': date,
-          'location': location,
-          'link': link
-      }
+    $('.event-card__body').each((index, element) => {
+        const title = $(element).find('.heading').text().trim()
+        let link = $(element).find('a.stretched-link').attr('href');
+        link = 'https://www.goteborg.com' + link;
+        const date = $(element).find('.c-icon__title').eq(0).text();
+        const location = $(element).find('.c-icon__title').eq(1).text();
 
-  eventResults.push(eventData);
-  
-  })
- 
+        const eventData = { 
+            'title': title,
+            'date': date,
+            'location': location,
+            'link': link
+        }
 
-await browser.close();
-
-  }
+        eventResults.push(eventData);
+    });
 
 
-   
-    
+    await browser.close();
 
-
-
-
-
-
-
-    //title = event-card__title
-    //link = event-card__body div.space-y-1 a.stretched-link
-    //datum = div.v-stack c-icon__title (ersätt idag med Date.now())
-    //location = div.v-stack c-icon__title (loopa?)
+}
