@@ -1,5 +1,5 @@
 # ScrapeGoat
-This is a Node.js app built with [Puppeteer]() and [Cheerio]() that scrapes event data from websites and presents them in a friendly, easy-to-read interface. It currently scrapes the data of [Göteborg&co](https://www.goteborg.com/evenemang). We us Puppeteer to load the relevant page and capture the data and Cheerio to loop through the data and save it to our API endpoint. We then present it on a page where the user can scan through the events and click through to the event's webpage.
+This is a Node.js app built with [Puppeteer](https://www.npmjs.com/package/puppeteer) and [Cheerio](https://www.npmjs.com/package/cheerio) that scrapes event data from websites and presents them in a friendly, easy-to-read interface. It currently scrapes the data of [Göteborg&co](https://www.goteborg.com/evenemang). We us Puppeteer to load the relevant page and capture the data and Cheerio to loop through the data and save it to our API endpoint. We then present it on a page where the user can scan through the events and click through to the event's webpage.
 
 ## Features
 * The scraper uses Puppeteer to access the webpage. Puppeteer also sets the specified viewport size and sets cookies.
