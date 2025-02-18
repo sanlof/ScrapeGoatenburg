@@ -14,28 +14,62 @@ let eventResults = [];
 const scrape = new SiteLoader('https://www.goteborg.com/evenemang');
 await scrape.startPuppeteer()
 await scrape.goToPage();
-await scrape.page.screenshot('screenshot.png');
-await scrape.setViewport(1080, 1024)
-await scrape.clickButton('button', 'Acceptera alla')
 
-await scrape.clickButton('button', 'Visa alla evenemang')
+await scrape.setViewport(2400, 1024)
+await scrape.browser.setCookie(
+    {
+    name: 'necessary_cookies',
+    value: 'true',
+    domain: 'https://www.goteborg.com',
+  },
+  {
+    name: 'statistics_cookies',
+    value: 'true',
+    domain: 'https://www.goteborg.com',
+  },
+  {
+    name: 'marketing_cookies',
+    value: 'true',
+    domain: 'https://www.goteborg.com',
+  }
 
-await scrape.getContent();
+);
+await scrape.browser.cookies();
 
-const load = new ContentScraper(scrape.htmlContent)
+try {
+    await scrape.clickButton('btn.btn--theme-link.btn--pill', 'Visa alla evenemang') 
+    } catch (e) {
+        console.error(e)    
+    }
 
-load.setBodyClass('.event-card__body')
-load.setTitleClass('.heading')
-load.setLinkClass('a.stretched-link')
-load.setDateClass('.c-icon__title')
-load.setLocationClass('.c-icon__title')
-load.loadCheerio()
-await load.scrapeLoop()
+try {
+    await scrape.evaluatePage('btn btn--theme-link btn--pill', 'Tillbaka till start')  
+    } catch(e){
+        console.error(e)
+    }
+
+
+async function getContent() {
+    try {
+        const htmlContent = await scrape.getContent();
+        const load = new ContentScraper(htmlContent)
+        load.loadCheerio()
+        load.setBodyClass('.image-card-alt__body')
+        load.setTitleClass('.image-card-alt__title')
+        load.setLinkClass('a.stretched-link')
+        load.setDateClass('.c-icon__title')
+        load.setLocationClass('.c-icon__title')
+        await load.scrapeLoop()
+    return load.eventResults
+        } 
+        catch (e) {
+            console.error(e)
+        }
+}
 
 
 
-
-eventResults = load.eventResults
+eventResults = await getContent()
 
 await scrape.closeBrowser();
 

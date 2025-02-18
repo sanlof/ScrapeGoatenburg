@@ -13,7 +13,7 @@ export class SiteLoader {
 
     async goToPage()
     {
-        await this.page.goto(this.url, { waitUntil: 'networkidle2'});
+        await this.page.goto(this.url);
     }
 
     async setViewport(x, y)
@@ -23,24 +23,41 @@ export class SiteLoader {
 
     async evaluatePage(selector, text)
      {
-        await this.page.evaluate((selector, text) => {
-        const buttons = Array.from(document.querySelectorAll(selector));
-           const button = buttons.find(button => button.textContent.trim() === text);
-        })
+        await this.page.$$eval(selector, (element) => {
+            for (i=0; i > element.length; i++)
+            {
+            if(element.textContent === text)
+            {
+                this.page.waitForNetworkIdle()
+                break;
+            } else {
+                throw Error(text + "Button not found");
+            }
+        }
         
-    }
+    })
+}
 
     async clickButton(selector, text)
     {
-        await this.page.evaluate((selector, text) => {
-            const buttons = Array.from(document.querySelectorAll(selector)); 
-            const button = buttons.find(button => button.textContent.trim() === text); 
-            if (button) {
-                button.click();
-              } 
-            })
+
+        await this.page.$$eval(selector, (element) => {
+            for (i=0; i > element.length; i++)
+            {
+            if(element.textContent === text)
+            {
+                element.click();
+                this.page.locator('#page-events').wait();
+                break;
+            } else {
+                throw Error(text + "Button not found");
+            }
+        }
+        }, text)
 
    }
+
+   
 
     async getContent() 
     {
