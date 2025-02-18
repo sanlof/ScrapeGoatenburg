@@ -1,11 +1,11 @@
 import express from 'express';
-import eventResults from '../middleware/webscraper.js';
+import scrapedEventData from '../controller/webscraper.js';
 
 const Router = express.Router();
 
 Router.get('/', (req, res) => {
-    const eventResultsData = eventResults;
-    res.json({ eventResultsData  });
+    const eventData = scrapedEventData;
+    res.json({ eventData });
 });
 
 export default Router;

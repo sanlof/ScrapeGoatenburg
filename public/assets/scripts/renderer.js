@@ -1,41 +1,29 @@
-function getData() {
-    const url = '/api';
-        fetch(url)
-            .then((response) => {
-                return response.json();
-        }).then((data) => { 
-            const eventResults = data.eventResultsData;
-            console.log(eventResults[0].title)
-             addContentToIndex(eventResults);
+fetch('/api').then((response) => {
+    return response.json();
+}).then((data) => { 
+    const eventData = data.eventData;
+    addContentToIndex(eventData);
+});
 
-        })
-}
+function addContentToIndex(eventData) {
 
-getData();
-
-
-function addContentToIndex(eventResults) {
-
-    eventResults.forEach(eventResult => {
+    eventData.forEach(event => {
         const article = document.createElement('article');
-        // const hgroup = document.createElement('hgroup');
         const date = document.createElement('time');
         const location = document.createElement('address');
         const heading = document.createElement('h2');
         const link = document.createElement('a');
         const posts = document.getElementById("posts");
         
-        date.textContent = eventResult.date;
-        // heading.textContent = eventResult.title;
-        location.textContent = eventResult.location;
-        link.href = eventResult.link;
-        link.textContent = eventResult.title; // title with link instead
+        date.textContent = event.date;
+        location.textContent = event.location;
+        link.href = event.link;
+        link.textContent = event.title; 
         
         article.appendChild(date);
         article.appendChild(heading);
         article.appendChild(location);
         heading.appendChild(link);
-        
         posts.appendChild(article);
         
         article.style.backgroundColor = getRandomColor();
