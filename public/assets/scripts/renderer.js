@@ -1,9 +1,24 @@
+
+document.addEventListener('DOMContentLoaded', () => {
 fetch('/api').then((response) => {
     return response.json();
 }).then((data) => { 
     const eventData = data.eventData;
+    if(eventData.length == 0) {
+        throw new Error('Data not found');
+    }
     addContentToIndex(eventData);
+}).catch((e) => {
+    console.error(e)
+    const info = document.getElementById('info');
+    const heading = document.querySelector('h2');
+    heading.textContent = 'Glenn ringde, han blir Hy-sen.';
+    const p = document.querySelector('p');
+    p.innerHTML = 'Sidan fungerar inte riktigt som den ska. Ladda gärna om!';
 });
+
+
+})
 
 function addContentToIndex(eventData) {
 
