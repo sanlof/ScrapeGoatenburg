@@ -17,6 +17,10 @@ app.use('/', (req, res) => {
 
 app.use('/api', apiRouter);
 
+app.use('*', (req, res) => {
+    res.status(404).sendFile(__dirname + '/public/index.html')
+})
+
 app.listen(port, () => {
     console.log(`Servern körs på ${port}`)
 })
