@@ -19,7 +19,7 @@ This is a Node.js app built with [Puppeteer](https://www.npmjs.com/package/puppe
 ## Installation & Setup
 
 1. Clone the repository on your local machine in an appropriate folder: ```git clone https://github.com/sanlof/ScrapeGoat.git```
-2. Navigate to the folder: cd Scrapegoat
+2. Navigate to the folder: ```cd Scrapegoat```
 3. Install depencies by running ```npm install```
 5. Happy scraping!
 
