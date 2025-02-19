@@ -11,7 +11,13 @@ async function scrapeWebsite() {
 
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
+    try {
     await page.goto('https://www.goteborg.com/evenemang', { waitUntil: 'networkidle2'});
+    } catch(e) {
+        console.error(e);
+        await browser.close();
+        return;
+    }
 
     await page.setViewport({width: 1080, height: 1024});
 
@@ -50,6 +56,8 @@ async function scrapeWebsite() {
         });
     } catch(e) {
         console.error(e)
+        await browser.close();
+        return;
     }
 
     const htmlContent = await page.content();
@@ -75,6 +83,8 @@ async function scrapeWebsite() {
         });
     } catch (e) {
         console.error(e)
+        await browser.close();
+        return;
     }
 
     await browser.close();
