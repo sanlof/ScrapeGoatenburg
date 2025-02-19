@@ -1,6 +1,6 @@
-:root {
+/* global */
 
-    /* spacing */
+:root {
     --gap: 1.6rem;
     --inner-padding: 3.2rem;
     --outer-padding: 4.2rem;
@@ -17,9 +17,11 @@
     padding: 0;
     margin: 0;
 }
+
 html {
     font-size: 62.5%;
 }
+
 body {
     background: antiquewhite;
     font: 1.6rem 'barlow', arial, sans-serif;

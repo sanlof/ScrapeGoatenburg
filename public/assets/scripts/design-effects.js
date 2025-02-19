@@ -1,4 +1,4 @@
-/****** Fyll articles med olika bakgrundsfärger ******/
+/****** fill articles with different background colours ******/
 
 const articles = document.querySelectorAll('article');
 
@@ -17,12 +17,6 @@ function getRandomRotation() {
   let random = Math.floor(Math.random() * (max - min + 1)) + min;
   return "rotate(" + random + "deg)";
 }
-
-// articles.forEach(article => {
-//   article.style.backgroundColor = getRandomColor();
-//   article.style.transform = getRandomRotation();
-// });
-
 
 /****** accessibly linked articles ******/
 
