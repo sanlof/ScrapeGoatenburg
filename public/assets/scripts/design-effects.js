@@ -2,6 +2,8 @@
 
 const articles = document.querySelectorAll('article');
 
+// A thought from the demo; I was under the impression that the color of the events was connected to what type of event. Random colors may be nice, but can also be a bit misleading.
+
 function getRandomColor() {
   const letters = '89ABCDEF';
   let color = '#';
