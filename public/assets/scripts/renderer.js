@@ -32,7 +32,7 @@ function addContentToIndex(eventData) {
         
         date.textContent = event.date;
         location.textContent = event.location;
-        link.href = event.link;
+        link.href = '/event/' + event.slug;
         link.textContent = event.title; 
         
         article.appendChild(date);
