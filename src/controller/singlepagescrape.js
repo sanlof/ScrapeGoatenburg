@@ -52,7 +52,8 @@ export default async function singlePageScrape (slug) {
             // const location = $(element).find('.c-icon__title').eq(1).text();
 
         // const ticketLink;
-        // const address;
+        // const link = $('div.link-list-wrapper > ul.list-unstyled > li > a').href()
+        const address = $('div.address').text().trim();
         // const eventSchedule;
         // const content;
         const intro = $('.intro').text().trim();
@@ -61,9 +62,9 @@ export default async function singlePageScrape (slug) {
 
         const eventData = {
             'title': title,
+            'adress': address,
             // 'date': date,
             // 'location': location,
-            // 'link': link,
             'intro': intro,
             'text': text
         }
