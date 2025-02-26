@@ -2,6 +2,7 @@ import express from "express";
 import path from "path"
 import url from "url";
 import apiRouter from "./src/routes/api.js";
+import eventRouter from "./src/routes/event.js";
 
 const port = 3000;
 const app = express();
@@ -17,9 +18,13 @@ app.use('/', (req, res) => {
 
 app.use('/api', apiRouter);
 
-app.use('*', (req, res) => {
-    res.status(404).sendFile(__dirname + '/public/index.html')
-})
+app.use('/event', eventRouter)
+
+// app.use('*', (req, res) => {
+//     res.status(404).sendFile(__dirname + '/public/index.html')
+// })
+
+
 
 app.listen(port, () => {
     console.log(`Servern körs på ${port}`)
