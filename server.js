@@ -7,6 +7,9 @@ import eventRouter from "./src/routes/event.js";
 const port = 3000;
 const app = express();
 
+app.set('view engine', 'pug');
+app.set('views', './views/'); 
+
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 const filePath = path.join(__dirname, 'public');
 app.use(express.static(filePath))
