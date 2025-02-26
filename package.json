@@ -11,11 +11,12 @@
   "type": "module",
   "description": "",
   "dependencies": {
-    "cheerio":"^1.0.0",
-    "express":"^4.21.2",
-    "puppeteer":"^24.2.1"
+    "cheerio": "^1.0.0",
+    "express": "^4.21.2",
+    "pug": "^3.0.3",
+    "puppeteer": "^24.2.1"
   },
   "devDependencies": {
-    "nodemon":"^3.1.9"
+    "nodemon": "^3.1.9"
   }
 }
