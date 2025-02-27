@@ -71,15 +71,18 @@ async function scrapeWebsite() {
             link = 'https://www.goteborg.com' + link;
             const date = $(element).find('.c-icon__title').eq(0).text();
             const location = $(element).find('.c-icon__title').eq(1).text();
+            const category = $(element).find('.badge>span').text().trim();
 
             const eventData = { 
                 'title': title,
                 'date': date,
                 'location': location,
-                'link': link
+                'link': link,
+                'category': category
             }
 
             scrapedEventData.push(eventData);
+            console.log(scrapedEventData);
         });
     } catch (e) {
         console.error(e)
